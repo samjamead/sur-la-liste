@@ -1,20 +1,18 @@
-import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation';
+'use client';
 
-export default async function ProtectedPage() {
-  const supabase = createClient();
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import TodoList from './todo-list';
+import AddTodo from './add-todo';
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect('/login');
-  }
+export default function TodoPage() {
+  const queryClient = new QueryClient();
 
   return (
-    <div className='flex-1 w-full flex flex-col gap-20 items-center'>
-      <h2>Todo: </h2>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className='animate-in flex flex-col gap-4'>
+        <AddTodo />
+        <TodoList />
+      </div>
+    </QueryClientProvider>
   );
 }
