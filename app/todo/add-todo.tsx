@@ -26,8 +26,8 @@ export default function AddTodo() {
     const { error } = await supabase.from('todos').insert({
       todo_content: todoContent,
       todo_category: todoCategory,
-      todo_status: 'To do', // Default status
-      todo_history: todoHistory, // Populate the history column
+      todo_status: 'To do',
+      todo_history: todoHistory,
     });
 
     if (error) throw new Error(error.message);
@@ -42,11 +42,11 @@ export default function AddTodo() {
       todoCategory: string;
     }) => addTodo(todoContent, todoCategory),
     onSuccess: () => {
-      console.log('Success!');
+      setNewTodo('');
+      setCategory('');
       queryClient.invalidateQueries({ queryKey: ['todos'] });
-      setNewTodo(''); // Reset the form on success
-      setCategory(''); // Reset category field
     },
+    mutationKey: ['addTodo'],
   });
 
   const handleSubmit = (e: React.FormEvent) => {

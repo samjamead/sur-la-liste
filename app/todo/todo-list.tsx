@@ -1,7 +1,7 @@
 'use client';
 
 import { createClient } from '@/utils/supabase/client';
-import { useQuery } from '@tanstack/react-query';
+import { useMutationState, useQuery } from '@tanstack/react-query';
 
 export default function TodoList() {
   const fetchTodos = async () => {
@@ -18,6 +18,13 @@ export default function TodoList() {
     queryKey: ['todos'],
     queryFn: fetchTodos,
   });
+
+  const variables = useMutationState<unknown>({
+    filters: { mutationKey: ['addTodo'], status: 'pending' },
+    select: (mutation) => mutation.state.variables,
+  });
+
+  console.log(variables);
 
   if (error) {
     return (
@@ -62,6 +69,23 @@ export default function TodoList() {
             </li>
           );
         })}
+        {variables &&
+          variables.map((variable) => {
+            return (
+              <li
+                key={variable.todoContent}
+                className='border rounded-lg p-4 flex flex-col gap-2'
+              >
+                <div className='flex justify-between items-center gap-4 text-xs font-mono'>
+                  <p className='px-2 py-0.5 bg-blue-500/50 rounded'>
+                    {variable.todoCategory}
+                  </p>
+                  <p>To do</p>
+                </div>
+                {variable.todoContent}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
