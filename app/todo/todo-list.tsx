@@ -4,6 +4,7 @@ import { useMutationState, useQuery } from '@tanstack/react-query';
 import { fetchTodos } from './server-actions';
 import { NewTodo } from '@/lib/common-types';
 import TodoListItem from './todo-list-item';
+import { LoaderIcon } from 'lucide-react';
 
 export default function TodoList() {
   const { data, error, isLoading } = useQuery({
@@ -36,7 +37,8 @@ export default function TodoList() {
 
   if (isLoading)
     return (
-      <div className='animate-in'>
+      <div className='text-sm animate-in w-full flex border rounded flex-col items-center justify-center gap-4 py-24'>
+        <LoaderIcon className='animate-spin h-4 w-4' />
         <p>Fetching the todos!</p>
       </div>
     );
