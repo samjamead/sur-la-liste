@@ -24,7 +24,7 @@ export const TodoListItem = ({ todo }: { todo: Todo | NewTodo }) => {
 
   return (
     <li
-      className={`p-4 grid grid-cols-[20%,auto,20%,6%] items-baseline text-sm border rounded-lg ${
+      className={`p-4 grid grid-cols-[15%,auto,20%,6%] items-baseline text-sm border rounded-lg ${
         isComplete ? 'text-foreground/50' : ''
       }`}
     >
@@ -34,7 +34,7 @@ export const TodoListItem = ({ todo }: { todo: Todo | NewTodo }) => {
 
       <p>{todo.todo_content}</p>
 
-      <div className='pr-4'>
+      <div className='px-4'>
         <p className='rounded-lg text-xs font-mono px-2 py-1 text-center bg-blue-300/30'>
           {todo.todo_category.toLocaleLowerCase()}
         </p>

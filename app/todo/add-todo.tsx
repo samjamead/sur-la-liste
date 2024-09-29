@@ -44,32 +44,39 @@ export default function AddTodo() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='flex justify-start items-center gap-4 text-sm'
-    >
-      <input
-        type='text'
-        value={contentInput}
-        onChange={(e) => setContentInput(e.target.value)}
-        placeholder='Enter new todo'
-        className='grow border p-2 rounded bg-background text-foreground'
-      />
-      <input
-        type='text'
-        value={categoryInput}
-        onChange={(e) => setCategoryInput(e.target.value)}
-        placeholder='Enter category'
-        className='border p-2 rounded bg-background text-foreground'
-      />
-      <button
-        type='submit'
-        className='bg-blue-500 text-white p-2 rounded disabled:text-foreground/50 disabled:bg-blue-500/20'
-        disabled={mutation.isPending}
+    <div className='w-full relative'>
+      {mutation.isPending && (
+        <div className='w-full absolute top-1/2 p-3 text-sm -translate-y-1/2 rounded border border-blue-700 bg-blue-600/90'>
+          <p className='text-center'>Adding todo...</p>
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        className='flex justify-start items-center gap-4 text-sm'
       >
-        Add Todo
-      </button>
-      {mutation.isPending && <p>Adding todo...</p>}
-    </form>
+        <input
+          type='text'
+          value={contentInput}
+          onChange={(e) => setContentInput(e.target.value)}
+          placeholder='Enter new todo'
+          className='grow border p-2 rounded bg-background text-foreground'
+        />
+        <input
+          type='text'
+          value={categoryInput}
+          onChange={(e) => setCategoryInput(e.target.value)}
+          placeholder='Enter category'
+          className='border p-2 rounded bg-background text-foreground'
+        />
+        <button
+          type='submit'
+          className='bg-blue-500 text-white p-2 rounded disabled:text-foreground/50 disabled:bg-blue-500/20'
+          disabled={mutation.isPending}
+        >
+          Add Todo
+        </button>
+      </form>
+    </div>
   );
 }
